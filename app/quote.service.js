@@ -1,11 +1,7 @@
-(function() {
+(function(app) {
   var Class = ng.core.Class;
-  var Component = ng.core.Component;
-  var NgModule = ng.core.NgModule;
-  var BrowserModule = ng.platformBrowser.BrowserModule;
-  var platformBrowserDynamic = ng.platformBrowserDynamic.platformBrowserDynamic;
 
-  var QuoteService = Class({
+  app.QuoteService = Class({
     constructor: function QuoteService() {
       this.quotes = sampleQuotes;
     },
@@ -21,41 +17,6 @@
       }, delay);
     }
   });
-
-  var RandomQuoteComponent = Component({
-    selector: 'random-quote',
-    template: '<p><em>{{ quote.line }}</em> - {{ quote.author }}',
-  })
-  .Class({
-    constructor: [QuoteService, function RandomQuoteComponent(quoteService) {
-      var self = this;
-      quoteService.generateRandomQuotes(5000, function(quote) {
-        self.quote = quote;
-      });
-    }]
-  });
-
-  var AppComponent = Component({
-    selector: 'my-app',
-    template:
-      '<h1>Random Quote!</h1>' +
-      '<random-quote></random-quote>'
-  })
-  .Class({
-    constructor: function AppComponent() { }
-  });
-
-  var AppModule = NgModule({
-  imports: [BrowserModule],
-  declarations: [AppComponent, RandomQuoteComponent],
-  providers: [QuoteService],
-  bootstrap: [AppComponent]
-  })
-  .Class({
-   constructor: function() { }
-  });
-
-  platformBrowserDynamic().bootstrapModule(AppModule);
 
   var sampleQuotes = [
     {
@@ -100,4 +61,4 @@
     }
   ];
 
-})();
+})(window.app || (window.app = {}));
