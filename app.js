@@ -15,6 +15,38 @@
     },
   });
 
+  var RandomQuoteComponent = Component({
+    selector: 'random-quote',
+    template: '<p><em>{{ quote.line }}</em> - {{ quote.author }}',
+  })
+  .Class({
+    constructor: [QuoteService, function RandomQuoteComponent(quoteService) {
+      this.quote = quoteService.getRandomQuote();
+    }]
+  });
+
+  var AppComponent = Component({
+    selector: 'my-app',
+    template:
+      '<h1>Random Quote!</h1>' +
+      '<random-quote></random-quote>'
+  })
+  .Class({
+    constructor: function AppComponent() { }
+  });
+
+  var AppModule = NgModule({
+  imports: [BrowserModule],
+  declarations: [AppComponent, RandomQuoteComponent],
+  providers: [QuoteService],
+  bootstrap: [AppComponent]
+  })
+  .Class({
+   constructor: function() { }
+  });
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
   var sampleQuotes = [
     {
       "line": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
