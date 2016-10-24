@@ -1,19 +1,12 @@
-(function(app) {
-  var Class = ng.core.Class;
-  var Component = ng.core.Component;
-  var QuoteService = app.QuoteService;
+import { Component, Inject } from '@angular/core';
+import { QuoteService } from './quote.service';
 
-  app.RandomQuoteComponent = Component({
-    selector: 'random-quote',
-    template: '<p><em>{{ quote.line }}</em> - {{ quote.author }}',
-  })
-  .Class({
-    constructor: [QuoteService, function RandomQuoteComponent(quoteService) {
-      var self = this;
-      quoteService.generateRandomQuotes(5000, function(quote) {
-        self.quote = quote;
-      });
-    }]
-  });
-
-})(window.app || (window.app = {}));
+@Component({
+  selector: 'random-quote',
+  template: '<p><em>{{ quote.line }}</em> - {{ quote.author }}',
+})
+export class RandomQuoteComponent {
+  constructor(@Inject(QuoteService) quoteService) {
+    quoteService.generateRandomQuotes(5000, quote =>  this.quote = quote);
+  }
+}

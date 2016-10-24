@@ -1,15 +1,10 @@
-(function(app) {
-  var Class = ng.core.Class;
-  var Component = ng.core.Component;
+import { Component } from '@angular/core';
 
-  app.AppComponent = Component({
-    selector: 'my-app',
-    template:
-      '<h1>Random Quote!</h1>' +
-      '<random-quote></random-quote>'
-  })
-  .Class({
-    constructor: function AppComponent() { }
-  });
-
-})(window.app || (window.app = {}));
+@Component({
+  selector: 'my-app',
+  template: `
+    <h1>Random Quote!</h1>
+    <random-quote></random-quote>
+  `
+})
+export class AppComponent{ }
